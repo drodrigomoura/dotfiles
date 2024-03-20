@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Lista de nombres de ventanas que deseas crear
+window_names=("ide" "dev" "tests" "coverage" "zsh" "zsh2" "zsh3")
+
+# # Borrar todas las ventanas existentes
+# tmux kill-window -a
+#
+# # Crear nuevas ventanas
+# for name in "${window_names[@]}"; do
+# 	tmux new-window -n "$name"
+# done
+
+# ------------------------------
+# # Obtener el índice de la primera ventana "zsh"
+# first_zsh_index=$(tmux list-windows -F '#{window_index} #{window_name}' | grep "zsh" | awk '{print $1}')
+#
+# # Borrar la primera ventana "zsh" si existe
+# if [ -n "$first_zsh_index" ]; then
+#     tmux kill-window -t "$first_zsh_index"
+# fi
+#
+# # Crear nuevas ventanas después de la primera ventana "zsh"
+# for name in "${window_names[@]}"; do
+#     tmux new-window -n "$name" -t "$first_zsh_index"
+#     first_zsh_index=$((first_zsh_index + 1))
+# done
+# ------------------------------
+
+# Encontrar el índice de la primera ventana "zsh"
+first_zsh_index=$(tmux list-windows -F '#{window_index} #{window_name}' | grep "zsh" | awk '{print $1}' | head -n 1)
+
+# Borrar la primera ventana "zsh" si existe
+if [ -n "$first_zsh_index" ]; then
+	tmux kill-window -t "$first_zsh_index" &>/dev/null
+fi
+
+# Crear nuevas ventanas después de la primera ventana "zsh" o al principio si no hay "zsh"
+if [ -n "$first_zsh_index" ]; then
+	for name in "${window_names[@]}"; do
+		tmux new-window -n "$name" -t "$first_zsh_index"
+		first_zsh_index=$((first_zsh_index + 1))
+	done
+else
+	for name in "${window_names[@]}"; do
+		tmux new-window -n "$name"
+	done
+fi
