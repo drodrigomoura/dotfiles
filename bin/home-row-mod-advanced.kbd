@@ -1,0 +1,172 @@
+;; Home row mods QWERTY example with more complexity.
+;; Some of the changes from the basic example:
+;; - when a home row mod activates tap, the home row mods are disabled
+;;   while continuing to type rapidly
+;; - tap-hold-release helps make the hold action more responsive
+;; - pressing another key on the same half of the keyboard
+;;   as the home row mod will activate an early tap action
+
+(defcfg
+  process-unmapped-keys yes
+)
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn lctl lalt lmet           spc            rmet ralt rctl
+)
+
+(defvar
+  ;; Note: consider using different time values for your different fingers.
+  ;; For example, your pinkies might be slower to release keys and index
+  ;; fingers faster.
+  tap-time 200
+  hold-time 175
+  tt $tap-time
+  ht $hold-time
+
+  left-hand-keys (
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    y u i o p
+    h j k l ;
+    n m , . /
+  )
+
+
+
+
+  rps S-0    ;; ) Right parenthesis
+  exc S-1    ;; ! Exclamation mark
+  dlr S-4    ;; $ Dollar
+  per S-5    ;; % Percent
+  crt S-6    ;; ^ Caret or circumflex
+  amp S-7    ;; & Ampersand
+  ask S-8    ;; * Asterisk
+  lps S-9    ;; ( Left parenthesis
+  pls S-=    ;; + Plus
+  lbc S-[    ;; { Left curly bracket
+  rbc S-]    ;; } Right curly bracket
+  uds S--    ;; _ Underscore
+  qtm S-/    ;; ? Question mark
+  tld S-\    ;; Tilda
+  vrb S-nubs ;; Vertical bar
+  num bksl   ;; # Number sign - on US keyboards it's where backslash is
+  dqm S-2    ;; Double quotation marks
+  eur RA-4   ;; Euro
+  gbp S-3    ;; £
+  ats S-'    ;; @
+  lst S-,    ;; <
+  grt S-.    ;; >
+  cln S-;    ;; :
+  mns -      ;; Minus
+)
+
+(deflayer base
+  esc  🔅   🔆    ✗    ✗    ✗    ✗    ◀◀   ▶⏸   ▶▶   🔇   🔉   🔊
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps @a    @s    @d    @f    g    h    @j    @k    @l    @;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @fn lctl lalt lmet           spc            rmet ralt rctl
+)
+
+
+
+(deflayer nomods
+  esc  🔅   🔆    ✗    ✗    ✗    ✗    ◀◀   ▶⏸   ▶▶   🔇   🔉   🔊
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  fn lctl lalt lmet           spc            rmet ralt rctl
+)
+
+#| *************
+   Function keys
+  ************* |#
+  (deflayer function
+    _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _              _              _    _    _
+  )
+
+ #| *************
+    HYPER
+  ************* |#
+  (deflayer hyper 
+    _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _              _              _    _    _
+  )
+
+  (deflayer numbers
+    _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    _    _    _    _    _    _    _    nlk  /    S-8    bspc    _    _    _
+    _    _    C-S-tab C-tab _ XX  nlk  kp7  kp8  kp9  min  _    _    _
+    _    _    C-z  C-y  M-tab XX  _    kp4  kp5  kp6  +    _    _
+    _    C-z  C-x  C-c  C-v  XX   kp0  kp1  kp2  kp3  ret  _
+    _    _    _              _              _    _    _    _
+  )
+
+(deffakekeys
+  to-base (layer-switch base)
+)
+(defalias
+  num (layer-toggle numbers)
+  ;;chr (layer-toggle chords)
+  ;;arr (layer-toggle arrows)
+  ;;msc (layer-toggle misc)
+  ;;lay (layer-toggle layers)
+  ;;mse (layer-toggle mouse)
+
+  ;; chords
+  csv C-S-v
+  csc C-S-c
+  ;;hyper CSAM
+
+  ;; Fix function key
+  fn (multi (layer-toggle function) fn)
+
+  ;;(tap-hold-press 200 200 caps (layer-while-held layer))
+  ;; tap for capslk, hold for lctl
+  ;; cap (tap-hold-release 200 200 caps lctl)
+  ;; caps (tap-hold-release 200 $ht esc caps)             ;; Caps Lock:   Tap = Escape Hold = Caps 
+  ;; caps (tap-hold 200 160 (caps-word 2000) caps)
+  ;; caps (tap-hold-release 200 160 caps @hyper)
+
+  ;; tap-hold keys with letters for tap and layer change for hold
+  lnum (tap-hold-release $tt $ht tab @num)
+
+  ;;oar (tap-hold-release 200 200 o @arr)
+  ;;ech (tap-hold-release 200 200 e @chr)
+  ;;umc (tap-hold-release 200 200 u @msc)
+  ;;grl (tap-hold-release 200 200 grv @lay)
+  ;;.ms (tap-hold-release 200 200 . @mse)
+
+  ;; home row mods
+  tap (multi
+    (layer-switch nomods)
+    (on-idle-fakekey to-base tap 20)
+  )
+
+  a (tap-hold-release-keys $tap-time $hold-time (multi a @tap) lmet $left-hand-keys)
+  s (tap-hold-release-keys $tap-time $hold-time (multi s @tap) lalt $left-hand-keys)
+  d (tap-hold-release-keys $tap-time $hold-time (multi d @tap) lctl $left-hand-keys)
+  f (tap-hold-release-keys $tap-time $hold-time (multi f @tap) lsft $left-hand-keys)
+  j (tap-hold-release-keys $tap-time $hold-time (multi j @tap) rsft $right-hand-keys)
+  k (tap-hold-release-keys $tap-time $hold-time (multi k @tap) rctl $right-hand-keys)
+  l (tap-hold-release-keys $tap-time $hold-time (multi l @tap) ralt $right-hand-keys)
+  ; (tap-hold-release-keys $tap-time $hold-time (multi ; @tap) rmet $right-hand-keys)
+)
