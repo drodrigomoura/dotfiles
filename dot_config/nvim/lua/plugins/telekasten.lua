@@ -1,5 +1,5 @@
--- local home = vim.fn.expand(os.getenv("TELEKASTEN_HOME") or "~/telekasten")
-local home = "/Users/rodri/Library/Mobile Documents/iCloud~md~obsidian/Documents/Rodri-Vault"
+local home = vim.fn.expand(os.getenv("RODRI_VAULT_HOME") or "~/telekasten")
+-- local home = "/Users/rodri/Library/Mobile Documents/iCloud~md~obsidian/Documents/Rodri-Vault"
 
 return {
   "renerocksai/telekasten.nvim",

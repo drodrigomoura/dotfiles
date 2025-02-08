@@ -91,6 +91,9 @@ alias c="clear"
 # PATHS
 export PATH="$HOME/bin:$PATH"
 
+# ENVS
+export RODRI_VAULT_HOME=/Users/rodri/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Rodri-Vault
+
 # NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
