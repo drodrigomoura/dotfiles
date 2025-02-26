@@ -24,7 +24,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.linting.eslint" },
 
     -- formatting
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
+    -- { import = "lazyvim.plugins.extras.formatting.prettier" },
     { import = "lazyvim.plugins.extras.formatting.biome" },
 
     -- coding
@@ -35,6 +35,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.inc-rename" },
     { import = "lazyvim.plugins.extras.editor.refactoring" },
     { import = "lazyvim.plugins.extras.editor.snacks_picker" },
+    -- { import = "lazyvim.plugins.extras.editor.outline" },
 
     -- ui
     { import = "lazyvim.plugins.extras.ui.smear-cursor" },

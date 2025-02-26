@@ -8,3 +8,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 vim.g.lazyvim_prettier_needs_config = true
+
+-- vim.g.calendar_google_calendar = 1
+-- vim.g.calendar_google_task = 1
+-- vim.cmd("source ~/.cache/calendar.vim/credentials.vim")
