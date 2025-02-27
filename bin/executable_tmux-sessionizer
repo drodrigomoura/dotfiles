@@ -4,14 +4,14 @@ if [[ $# -eq 1 ]]; then
   selected=$1
 else
   selected=$(
-    find ~/.config \
+    find -L ~/.config \
       ~/personal \
       ~/personal/COURSES \
       ~/code-interviews \
       ~/old-work \
       ~/old-work/INVENTA \
-      ~/work/* \
-      -mindepth 1 -maxdepth 1 -type d | fzf
+      ~/personal/SIDE-PROJECTS \
+      -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | fzf
   )
 fi
 
@@ -19,8 +19,17 @@ if [[ -z $selected ]]; then
   exit 0
 fi
 
+# ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents \    # fzf lo encuentra pero no hace el cambio de carpetas
+
+# printf "%s\n" "$selected"
+
 selected_name=$(basename "$selected" | tr . _)
+
+# printf "%s\n" "$selected_name"
+
 tmux_running=$(pgrep tmux)
+
+# printf "tmux_running: %s\n" "$tmux_running"
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
   tmux new-session -s $selected_name -c $selected
