@@ -7,6 +7,10 @@
 ;;   as the home row mod will activate an early tap action
 
 (defcfg
+  ;;macos-dev-names-include (
+  ;;  "Apple Internal Keyboard / Trackpad"
+  ;;  "Keyboard K380"
+  ;;)
   process-unmapped-keys yes
 )
 (defsrc
